@@ -21,25 +21,25 @@ namespace LineTextEditor.CommandProcessor
         }
         public void ProcessCommand(string command, string filePath, List<string> lines)
         {
-            if (command.StartsWith(LIST_COMMAND))
+            switch (command)
             {
-                _commands.ListLines(lines);
-            }
-            else if (command.StartsWith(DELETE_COMMAND))
-            {
-                _commands.DeleteLine(command, lines);
-            }
-            else if (command.StartsWith(INSERT_COMMAND))
-            {
-                _commands.InsertLine(command, lines);
-            }
-            else if (command == SAVE_COMMAND)
-            {
-                _commands.SaveFile(filePath, lines);
-            }
-            else if (command != QUIT_COMMAND)
-            {
-                Console.WriteLine("Unknown command.");
+                case string comm when comm.StartsWith(LIST_COMMAND):
+                    _commands.ListLines(lines);
+                    break;
+                case string comm when comm.StartsWith(DELETE_COMMAND):
+                    _commands.DeleteLine(command, lines);
+                    break;
+                case string comm when comm.StartsWith(INSERT_COMMAND):
+                    _commands.InsertLine(command, lines);
+                    break;
+                case string comm when comm == SAVE_COMMAND:
+                    _commands.SaveFile(filePath, lines);
+                    break;
+                case string comm when comm == QUIT_COMMAND:
+                    break;
+                default:
+                    Console.WriteLine("Unknown command.");
+                    break;
             }
         }
     }
